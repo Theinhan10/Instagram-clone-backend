@@ -2,14 +2,11 @@ package com.project.instagramclonebackend.Service;
 
 import com.project.instagramclonebackend.Entity.Users;
 import com.project.instagramclonebackend.Repository.UserRepo;
-import com.project.instagramclonebackend.exception.NoSuchUserExistsException;
-import jakarta.persistence.EntityNotFoundException;
-import org.apache.catalina.User;
+import com.project.instagramclonebackend.exception.NoSuchExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 //service handle the business logic for submitting our data into the database
 //Business logic is responsible for implementing the core functionality and rules of an application.
@@ -27,7 +24,7 @@ public class UserService {
     //getting the user
     public Users getUser(Integer userId) {
         return userRepo.findById(userId).orElseThrow(
-                ()->new NoSuchUserExistsException("No User was present with ID " + userId));
+                ()->new NoSuchExistsException("No User was present with ID " + userId));
     }
 
     public List<Users> getAllUsers(){
@@ -38,7 +35,7 @@ public class UserService {
     //deleting users
     public String deleteUser(Integer userId) {
         if(!userRepo.existsById(userId)){
-            throw new NoSuchUserExistsException("Unable to delete. No User was present with ID " + userId);
+            throw new NoSuchExistsException("Unable to delete. No User was present with ID " + userId);
         }
         userRepo.deleteById(userId);
         return "User with id " + userId + " has been deleted success.";
@@ -54,7 +51,7 @@ public class UserService {
                     user.setUserId(newUser.getUserId());
                     return userRepo.save(user);
                 }
-        ).orElseThrow(()-> new NoSuchUserExistsException("Unable to find the users to update! " + userId));
+        ).orElseThrow(()-> new NoSuchExistsException("Unable to find the users to update! " + userId));
     }
 
 

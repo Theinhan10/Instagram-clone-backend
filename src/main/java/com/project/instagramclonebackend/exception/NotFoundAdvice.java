@@ -11,16 +11,16 @@ import java.util.Map;
 
 // This class is annotated with @ControllerAdvice, indicating that it provides global exception handling advice for controllers.
 @ControllerAdvice
-public class UserNotFoundAdvice {
+public class NotFoundAdvice {
 
-    // This method is annotated with @ExceptionHandler(NoSuchUserExistsException.class),
-    // indicating that it handles exceptions of type NoSuchUserExistsException.
+    // This method is annotated with @ExceptionHandler(NoSuchExistsException.class),
+    // indicating that it handles exceptions of type NoSuchExistsException.
     @ResponseBody
-    @ExceptionHandler(NoSuchUserExistsException.class)
+    @ExceptionHandler(NoSuchExistsException.class)
     // Set the HTTP response status to NOT_FOUND (404) when this exception occurs.
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> userExceptionHandler(NoSuchUserExistsException exception) {
-        // This code is executed when an exception of type NoSuchUserExistsException occurs.
+    public Map<String, String> globalExceptionHandler(NoSuchExistsException exception) {
+        // This code is executed when an exception of type NoSuchExistsException occurs.
 
         // Create a Map to store the error message.
         Map<String, String> errorMap = new HashMap<>();
