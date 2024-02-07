@@ -18,7 +18,7 @@ public class Status {
     private String path;
     private Timestamp timestamp;
 
-    //default Constructor
+    //default Constructor testing
     public Status(){
         super();
     }
