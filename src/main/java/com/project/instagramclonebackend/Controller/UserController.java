@@ -2,10 +2,7 @@ package com.project.instagramclonebackend.Controller;
 
 import com.project.instagramclonebackend.Entity.Users;
 import com.project.instagramclonebackend.Service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +22,7 @@ public class UserController {
 
 
     @GetMapping("/{userid}") // @PathVariable is an annotation used in a Spring MVC controller to extract values from the URI path.
-    private Users getUser(@PathVariable("userid") Integer userId){
+    private Users getUser(@PathVariable("userid") Long userId){
         return userService.getUser(userId);
     }
 
@@ -34,13 +31,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("/updateUser/{userid}")
-    private Users updateUser(@RequestBody Users newUser, @PathVariable("userid") Integer userID){
-        return userService.updateUser(newUser, userID);
+    @PutMapping("/updateUser/{userId}")
+    private Users updateUser(@RequestBody Users newUser, @PathVariable("userId") Long userId){
+        return userService.updateUser(newUser, userId);
     }
 
     @DeleteMapping("/deleteUser/{userid}")
-    public String deleteUser(@PathVariable Integer userid){
+    public String deleteUser(@PathVariable Long userid){
         return userService.deleteUser(userid);
     }
 

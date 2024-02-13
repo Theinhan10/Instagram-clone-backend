@@ -16,9 +16,13 @@ public class StatusService {
     @Autowired
     StatusRepo statusRepo;
 
+    @Autowired
+    UserService userService;
+
     //adding status
     public Status addStatus(Status status){
         try{
+            status.setUserName(userService.getUser(status.getUserId()).getUserName());
             return statusRepo.save(status);
         }catch (DataIntegrityViolationException e){
             // Handle exception or log an error message
@@ -27,7 +31,7 @@ public class StatusService {
     }
 
     //Getting a specific status
-    public Status getStatus(Integer statusId){
+    public Status getStatus(Long statusId){
         return statusRepo.findById(statusId).orElseThrow(()-> new NoSuchElementException("No status was found with ID " + statusId));
     }
 
@@ -37,9 +41,9 @@ public class StatusService {
     }
 
     //deleting status
-    public String deleteStatus(Integer statusId) {
+    public String deleteStatus(Long statusId) {
         if(!statusRepo.existsById(statusId)){
-            throw new NoSuchExistsException("Unable to delete Status with ID " + statusId);
+            throw new NoSuchExistsException("No Status with ID " + statusId);
         }
         statusRepo.deleteById(statusId);
         return "Status with id " + statusId + " has been deleted success.";

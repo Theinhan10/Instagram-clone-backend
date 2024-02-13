@@ -8,45 +8,32 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-@Entity(name = "Status")
-public class Status {
+@Entity(name = "Post")
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long statusId;
+    private int postId;
 
     @NotNull
     private Long userId;
     private String userName;
     private String path;
     private Timestamp timestamp;
+    private int likeCount;
+
 
     //default Constructor
-    public Status(){
+    public Post(){
         super();
     }
 
-    public Status(Long userId, String userName, String path, Timestamp timestamp) {
+    public Post(int postId, Long userId, String path, Timestamp timestamp, int likeCount) {
+        super();
         this.userId = userId;
-        this.userName = userName;
         this.path = path;
         this.timestamp = timestamp;
-    }
-
-    public Long getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+        this.likeCount = likeCount;
     }
 
     public String getUserName() {
@@ -55,6 +42,23 @@ public class Status {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPath() {
@@ -71,5 +75,13 @@ public class Status {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 }

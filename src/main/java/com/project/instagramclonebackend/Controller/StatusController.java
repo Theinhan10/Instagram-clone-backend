@@ -20,7 +20,7 @@ public class StatusController {
     }
 
     @GetMapping("/{statusId}")
-    private Status getStatus(@PathVariable("statusId") Integer statusId){
+    private Status getStatus(@PathVariable("statusId") Long statusId){
         return statusService.getStatus(statusId);
     }
 
@@ -30,8 +30,10 @@ public class StatusController {
     }
 
     @DeleteMapping("/deleteStatus/{statusId}")
-    public String deleteStatus(@PathVariable Integer statusId){
+    public String deleteStatus(@PathVariable Long statusId){
         return statusService.deleteStatus(statusId);
     }
+
+
 
 }

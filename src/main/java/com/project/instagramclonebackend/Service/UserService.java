@@ -22,7 +22,7 @@ public class UserService {
     }
 
     //getting the user
-    public Users getUser(Integer userId) {
+    public Users getUser(Long userId) {
         return userRepo.findById(userId).orElseThrow(
                 ()->new NoSuchExistsException("No User was present with ID " + userId));
     }
@@ -33,7 +33,7 @@ public class UserService {
 
 
     //deleting users
-    public String deleteUser(Integer userId) {
+    public String deleteUser(Long userId) {
         if(!userRepo.existsById(userId)){
             throw new NoSuchExistsException("Unable to delete. No User was present with ID " + userId);
         }
@@ -42,13 +42,12 @@ public class UserService {
     }
 
     //Updating user
-    public Users updateUser(Users newUser, Integer userId){
+    public Users updateUser(Users newUser, Long userId){
         return userRepo.findById(userId).map(
                 user->{
                     user.setUserName(newUser.getUserName());
                     user.setName(newUser.getName());
                     user.setProfileImage(newUser.getProfileImage());
-                    user.setUserId(newUser.getUserId());
                     return userRepo.save(user);
                 }
         ).orElseThrow(()-> new NoSuchExistsException("Unable to find the users to update! " + userId));

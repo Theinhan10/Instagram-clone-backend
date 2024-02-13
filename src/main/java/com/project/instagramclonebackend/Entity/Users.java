@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
 
 //name is what will be save in the DB as
 @Entity(name="Users")
@@ -13,11 +12,9 @@ public class Users {
     //With GenerationType.IDENTITY, the database will automatically assign IDs in sequential order as new records are inserted.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long userId;
 
 
-    @NotNull
-    private String userId;
     private String userName;
     private String name;
     private String profileImage;
@@ -26,28 +23,19 @@ public class Users {
         super();
     }
 
-    public Users(int id, String userId, String userName, String name, String profileImage) {
+    public Users( String userName, String name, String profileImage) {
         super();
-        this.id = id;
-        this.userId = userId;
         this.userName = userName;
         this.name = name;
         this.profileImage = profileImage;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
