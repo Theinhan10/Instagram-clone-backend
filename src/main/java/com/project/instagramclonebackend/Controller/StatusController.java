@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/status")
+@CrossOrigin
 public class StatusController {
 
     @Autowired

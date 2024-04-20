@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 //name is what will be save in the DB as
 @Entity(name="Users")
@@ -15,21 +16,44 @@ public class Users {
     private Long userId;
 
 
+
+    @NotNull
+    private String userUniqueId;
     private String userName;
     private String name;
     private String profileImage;
+    private String password;
 
     public Users(){
         super();
     }
 
-    public Users( String userName, String name, String profileImage) {
+
+    public Users(String password, String userUniqueId, String userName, String name, String profileImage) {
         super();
+        this.userUniqueId = userUniqueId;
         this.userName = userName;
         this.name = name;
         this.profileImage = profileImage;
+        this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getUserUniqueId() {
+        return userUniqueId;
+    }
+
+    public void setUserUniqueId(String userUniqueId) {
+        this.userUniqueId = userUniqueId;
+    }
 
     public Long getUserId() {
         return userId;

@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     //annotation tells the Spring framework to automatically inject the required dependency (UserService in this case) at runtime.
@@ -42,7 +43,10 @@ public class UserController {
     }
 
 
-
+    @GetMapping("userUniqueId/{userUniqueId}")
+    private Users getUserByUniqueId (@PathVariable("userUniqueId") String userUniqueId){
+        return userService.getUserByUniqueId(userUniqueId);
+    }
 
 
 

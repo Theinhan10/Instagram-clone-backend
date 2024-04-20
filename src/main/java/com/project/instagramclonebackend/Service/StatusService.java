@@ -24,7 +24,7 @@ public class StatusService {
         try{
             status.setUserName(userService.getUser(status.getUserId()).getUserName());
             return statusRepo.save(status);
-        }catch (DataIntegrityViolationException e){
+        }catch (Exception e){
             // Handle exception or log an error message
             throw new NoSuchExistsException("Unable to add status: " + e.getMessage(), e);
         }

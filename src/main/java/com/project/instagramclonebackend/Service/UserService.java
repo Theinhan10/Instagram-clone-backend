@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 //service handle the business logic for submitting our data into the database
 //Business logic is responsible for implementing the core functionality and rules of an application.
@@ -27,6 +28,15 @@ public class UserService {
                 ()->new NoSuchExistsException("No User was present with ID " + userId));
     }
 
+    //getting user using uid
+    public Users getUserByUniqueId(String userUniqueId) {
+        Optional<Users> userOptional = userRepo.findByUserUniqueId(userUniqueId);
+        return userOptional.orElseThrow(() ->
+                new NoSuchExistsException("No User was present with Unique ID " + userUniqueId)
+        );
+    }
+
+
     public List<Users> getAllUsers(){
         return (List<Users>) userRepo.findAll(); //(List<Users>) syntax tell compiler to expect result to be a List comtaining elements of users class
     }
@@ -45,9 +55,11 @@ public class UserService {
     public Users updateUser(Users newUser, Long userId){
         return userRepo.findById(userId).map(
                 user->{
+                    user.setUserUniqueId(newUser.getUserUniqueId());
                     user.setUserName(newUser.getUserName());
                     user.setName(newUser.getName());
                     user.setProfileImage(newUser.getProfileImage());
+                    user.setPassword(newUser.getPassword());
                     return userRepo.save(user);
                 }
         ).orElseThrow(()-> new NoSuchExistsException("Unable to find the users to update! " + userId));

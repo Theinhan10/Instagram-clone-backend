@@ -1,8 +1,8 @@
 package com.project.instagramclonebackend.Repository;
 
-import com.project.instagramclonebackend.Entity.Post;
+import com.project.instagramclonebackend.Entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostRepo extends JpaRepository<Post, Long> {
+public interface ImageRepo extends JpaRepository <Image, Long> {
 
 }

@@ -1,26 +1,29 @@
 package com.project.instagramclonebackend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Post")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int postId;
+    private Long postId;
 
     @NotNull
-    private Long userId;
+    private String userUID;
     private String userName;
     private String path;
     private Timestamp timestamp;
     private int likeCount;
+
+
+    @ElementCollection
+    private List<String> images = new ArrayList<>();
 
 
     //default Constructor
@@ -28,12 +31,22 @@ public class Post {
         super();
     }
 
-    public Post(int postId, Long userId, String path, Timestamp timestamp, int likeCount) {
-        super();
-        this.userId = userId;
+    public Post(Long postId, String userUID, String userName, String path, Timestamp timestamp, int likeCount, List<String> images) {
+        this.postId = postId;
+        this.userUID = userUID;
+        this.userName = userName;
         this.path = path;
         this.timestamp = timestamp;
         this.likeCount = likeCount;
+        this.images = images;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public String getUserName() {
@@ -45,20 +58,20 @@ public class Post {
     }
 
 
-    public int getPostId() {
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserUID() {
+        return userUID;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
     }
 
     public String getPath() {
