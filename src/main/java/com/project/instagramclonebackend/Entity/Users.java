@@ -1,21 +1,18 @@
 package com.project.instagramclonebackend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-//name is what will be save in the DB as
-@Entity(name="Users")
+import java.util.List;
+
+//name is what will be saved in the DB as
+@Entity(name = "Users")
 public class Users {
 
-    //With GenerationType.IDENTITY, the database will automatically assign IDs in sequential order as new records are inserted.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
-
 
     @NotNull
     private String userUniqueId;
@@ -23,19 +20,35 @@ public class Users {
     private String name;
     private String profileImage;
     private String password;
+    private String email;
 
-    public Users(){
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Post> posts;
+
+    public Users() {
         super();
     }
 
-
-    public Users(String password, String userUniqueId, String userName, String name, String profileImage) {
+    public Users(String password, String userUniqueId, String userName, String name, String profileImage, String email, List<Post> posts) {
         super();
         this.userUniqueId = userUniqueId;
         this.userName = userName;
         this.name = name;
         this.profileImage = profileImage;
         this.password = password;
+        this.email = email;
+        this.posts = posts;
+    }
+
+    // Getters and setters for all fields, including the new posts field
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -45,7 +58,6 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getUserUniqueId() {
         return userUniqueId;
@@ -85,5 +97,13 @@ public class Users {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

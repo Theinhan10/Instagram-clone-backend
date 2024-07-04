@@ -60,14 +60,15 @@ public class UserService {
                     user.setName(newUser.getName());
                     user.setProfileImage(newUser.getProfileImage());
                     user.setPassword(newUser.getPassword());
+                    user.setEmail(newUser.getEmail());
                     return userRepo.save(user);
                 }
         ).orElseThrow(()-> new NoSuchExistsException("Unable to find the users to update! " + userId));
     }
 
-
-
-
-
+    // Overloaded method to update user without creating a new user object
+    public Users updateUser(Users user) {
+        return userRepo.save(user);
+    }
 
 }
